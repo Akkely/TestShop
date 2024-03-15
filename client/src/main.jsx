@@ -9,6 +9,8 @@ import ProductDetail from "./views/ProductDetail.jsx";
 import ProductEdit from "./views/ProductEdit.jsx";
 import CartView from "./views/CartView";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { CartProvider } from './common/CartContext';
+
 
 const router = createBrowserRouter([
 	{

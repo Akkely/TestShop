@@ -28,18 +28,8 @@ function ProductItemSmall({ product }) {
 							<Link to={`/products/${product.id}`}>{product.title}</Link>
 						</Typography>
 					}
-					subheader={`Skrivet: ${toRelativeDateString(product.createdAt)}`}
-					// avatar={
-					//   <UserItemSmall
-					//     style={{
-					//       minWidth: '7rem',
-					//       paddingRight: '.7rem',
-					//       marginRight: '.5rem',
-					//       borderRight: `1px solid ${grey[400]}`
-					//     }}
-					//     user={product.author}
-					//   />
-					// }
+					subheader={`Inlagt: ${toRelativeDateString(product.createdAt)}`}
+		
 				/>
 				<CardMedia
 					component='img'
