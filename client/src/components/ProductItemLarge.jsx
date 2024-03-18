@@ -4,36 +4,57 @@ import {
 	CardContent,
 	CardMedia,
 	Paper,
+	TextField,
 	Typography,
 	Rating,
+	IconButton,
+	Button,
 } from "@mui/material";
 import Cart from "./Cart";
 /* import UserItemSmall from './UserItemSmall'; */
 import { toDateTimeString } from "../common/formatHelpers";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import placeholderImage from "../assets/placeholder.png";
 import { calculateAverageRating } from "../common/helpers";
 import React, { useState } from "react";
 import { useCart } from "../common/CartContext";
 
 function ProductItemLarge({ product }) {
-	console.log(product);
-	console.log(useCart);
-
 	const { addToCart } = useCart();
 	const [showNotification, setShowNotification] = useState(false);
-	const addToCartHandeler = (product) => {
-    addToCart(product);
-		// Add product to cart
+	const [quantity, setQuantity] = useState(1); // Initial quantity
+	console.log(quantity);
+	console.log(addToCart);
+
+	const addToCartHandler = (product) => {
+		if (quantity === 0) {
+			removeItemFromCart(product.id);
+		} else {
+			addToCart(product, quantity);
+		}
+	
 		setShowNotification(true);
 
-		// Simulate a delay for the notification (optional)
+		// Simulate delay (optional)
 		setTimeout(() => {
 			setShowNotification(false);
 		}, 2000);
 	};
 
+
+
+	
 	const averageRating = product ? calculateAverageRating(product.reviews) : 0;
 
+	const handleQuantityChange = (event) => {
+		const newQuantity = parseInt(event.target.value, 10);
+		if (isNaN(newQuantity) || newQuantity < 1) {
+			setQuantity(1); // Set minimum quantity to 1
+		} else {
+			setQuantity(newQuantity);
+		}
+	};
 	return (
 		<Paper sx={{ my: 4, p: 4, borderRadius: 2 }} elevation={3}>
 			<Box>
@@ -48,7 +69,6 @@ function ProductItemLarge({ product }) {
 					component='img'
 					image={product.imageUrl || placeholderImage}
 				/>
-
 				<CardContent>
 					{product.carts &&
 						product.carts.map((cart) => (
@@ -58,12 +78,25 @@ function ProductItemLarge({ product }) {
 					<Typography variant='body1'>{product.body}</Typography>
 					<Typography variant='body2'>{product.price} kr</Typography>
 
+					<Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
+						<TextField
+							label='Antal'
+							type='number'
+							value={quantity}
+							onChange={handleQuantityChange}
+							sx={{ width: 70, mr: 2 }}
+							inputProps={{ min: 1 }} // Set minimum input value to 1
+						/>
+						<IconButton onClick={() => addToCartHandler(product)}>
+							<AddShoppingCartIcon />
+							{/* Consider using a Shopping Cart icon or similar */}
+							Lägg till i varukorgen
+						</IconButton>
+					</Box>
+
 					{showNotification && (
 						<p>{product.title} har lagts till i varukorgen!</p>
 					)}
-					<button onClick={() => addToCartHandeler(product)}>
-						Lägg till i varukorg
-					</button>
 				</CardContent>
 			</Card>
 		</Paper>

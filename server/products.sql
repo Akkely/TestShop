@@ -28,9 +28,9 @@ insert into products (title, body, image_url ,  price,created_at, updated_at) va
 
 
 
-insert into reviews (rating, title, body, product_id, created_at, updated_at) values ('3','Besviken', 'Liten i storleken, midjan är tight.', 5, '2021-04-05 22:04:29', '2022-02-09 00:00:00');
+insert into reviews (review, title, body, product_id, created_at, updated_at) values ('2','Besviken', 'Liten i storleken, midjan är tight.', 5, '2021-04-05 22:04:29', '2022-02-09 00:00:00');
 
-insert into reviews  (rating, title, body, product_id, created_at, updated_at) values ('5','Så snygga.', 'Älskar dessa shorts så himla mycket! Har fler i olika färger. Skön hög midja och så snygga', 10, '2021-04-05 22:04:29', '2022-02-09 00:00:00');
+insert into reviews  (review, title, body, product_id, created_at, updated_at) values ('10','Så snygga.', 'Älskar dessa shorts så himla mycket! Har fler i olika färger. Skön hög midja och så snygga', 10, '2021-04-05 22:04:29', '2022-02-09 00:00:00');
 
-insert into reviews  (rating, title, body, product_id, created_at, updated_at) values ('4','Så snygg','Jättefin skinande blå färg. Skön tyg. Fin modell. Skulle däremot personligen föredra ärmarna utan knapp manschetter eller åtminstone mjukare manschetter. Tycker om ärmslutet lösare och inte så fast hållen. Men det är en mycket personlig önskan, det är helt normalt och fint med manschetter. Har den både i S och M. Då min storlek är där emellan. S sitter lite tightare och M lite lösare. Båda sitter fint.', 3, '2021-04-05 22:04:29', '2022-02-09 00:00:00');
+insert into reviews  (review, title, body, product_id, created_at, updated_at) values ('6','Så snygg','Jättefin skinande blå färg. Skön tyg. Fin modell. Skulle däremot personligen föredra ärmarna utan knapp manschetter eller åtminstone mjukare manschetter. Tycker om ärmslutet lösare och inte så fast hållen. Men det är en mycket personlig önskan, det är helt normalt och fint med manschetter. Har den både i S och M.', 3, '2021-04-05 22:04:29', '2022-02-09 00:00:00');
 

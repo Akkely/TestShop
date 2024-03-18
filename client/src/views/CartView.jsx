@@ -1,12 +1,10 @@
-import React from "react";
+// import React from "react";
 import { useCart } from "../common/CartContext";
 import {
-	Alert,
 	Box,
 	Button,
-	Container,
-	List,
 	Table,
+	TextField,
 	TableBody,
 	TableCell,
 	TableContainer,
@@ -14,12 +12,34 @@ import {
 	Avatar,
 	TableRow,
 	Typography,
-	ListItem,
-	ListItemText,
+	IconButton,
 } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import React, { useState } from "react";
+import { setCartItems, removeItemFromCart } from '../common/CartContext'
+
+
 
 function CartView() {
-	const { cartItems } = useCart();
+
+
+  const { cartItems } = useCart();
+  const [quantity, setQuantity] = useState(1); // Initial quantity
+
+	
+  const handleQuantityChange = (item, newQuantity) => {
+    setQuantity(newValue => Math.max(0, Math.min(newValue, newQuantity))); // Set valid quantity range
+    const updatedCartItems = cartItems.map(cartItem => {
+      if (cartItem.id === item.id) {
+        return { ...cartItem, quantity: newQuantity };
+      }
+      return cartItem;
+    });
+    // Now you can use setCartItems to update the cart items
+    setCartItems(updatedCartItems);  
+  };
+
+
 	const totalCost = cartItems.reduce(
 		(total, item) => total + item.price * item.quantity,
 		0
@@ -43,21 +63,49 @@ function CartView() {
 									<TableCell>Pris</TableCell>
 								</TableRow>
 							</TableHead>
+
 							<TableBody>
 								{cartItems.map((item) => (
-									<TableRow key={item.id}>
-										<TableCell>
-											<Avatar
-												sx={{ width: 60, height: 60 }}
-												variant='square'
-												alt={item.title}
-												src={item.imageUrl}
-											/>
-										</TableCell>
-										<TableCell>{item.title}</TableCell>
-										<TableCell>{item.quantity}</TableCell>
-										<TableCell>{item.price} kr</TableCell>
-									</TableRow>
+								<TableRow key={item.id}>
+									<TableCell>
+										<Avatar
+											sx={{ width: 60, height: 60 }}
+											variant='square'
+											alt={item.title}
+											src={item.imageUrl}
+										/>
+									</TableCell>
+
+									<TableCell>{item.title}</TableCell>
+
+									<TableCell>{item.quantity}</TableCell>
+									<TableCell>
+
+										<Box>
+										<TextField
+                          label='Antal'
+                          type='number'
+                          value={item.quantity} // Use item.quantity directly
+                          onChange={handleQuantityChange}
+                          sx={{ width: 70, mr: 2 }}
+                          inputProps={{ min: 0 }} // Set minimum input value to 1
+                        />
+                        <IconButton onClick={() => handleQuantityChange(item, quantity)}>
+                          {/* Consider using a Shopping Cart icon or similar */}
+                          Ta bort i varukorgen
+                        </IconButton>
+						</Box>
+									</TableCell>
+
+									<TableCell>{item.price * item.quantity} kr</TableCell>
+
+									<IconButton onClick={() => removeItemFromCart(item.id)}>
+											Ta bort
+									</IconButton>
+								
+									<DeleteIcon />
+								</TableRow>
+
 								))}
 							</TableBody>
 						</Table>
